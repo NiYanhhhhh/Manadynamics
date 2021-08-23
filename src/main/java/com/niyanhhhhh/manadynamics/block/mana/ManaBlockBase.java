@@ -1,21 +1,30 @@
-package com.niyanhhhhh.manadynamics.block;
+package com.niyanhhhhh.manadynamics.block.mana;
 
 import com.niyanhhhhh.manadynamics.Main;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumBlockRenderType;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 
-public class BlockBase extends Block implements IModelRegister {
+import javax.annotation.Nonnull;
 
-    public BlockBase(Material material, String name) {
-        super(material);
+public abstract class ManaBlockBase extends BlockContainer implements IModelRegister {
+
+    protected ManaBlockBase(Material materialIn, String name) {
+        super(materialIn);
+
         setTranslationKey(Main.MODID + "." + name);
         setRegistryName(Main.MODID + ":" + name);
+    }
 
-        Blocks.BLOCKS.add(this);
+    @Nonnull
+    @Override
+    public EnumBlockRenderType getRenderType(@Nonnull IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }
 
     @Override

@@ -30,16 +30,10 @@ public class Registry {
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        for (Block block : Blocks.BLOCKS) {
-            if (block instanceof IModelRegister) {
-                ((IModelRegister) block).registerModels();
-            }
-        }
-        for (Item item : Items.ITEMS) {
-            if (item instanceof IModelRegister) {
-                ((IModelRegister) item).registerModels();
-            }
-        }
+        Blocks.BLOCKS.stream().filter(block -> block instanceof IModelRegister)
+                .forEach(block -> ((IModelRegister) block).registerModels());
+        Items.ITEMS.stream().filter(item -> item instanceof IModelRegister)
+                .forEach(item -> ((IModelRegister) item).registerModels());
     }
 
 }

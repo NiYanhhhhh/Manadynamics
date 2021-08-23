@@ -9,4 +9,6 @@ public class Items {
 
     public static final List<Item> ITEMS = new ArrayList<>();
 
+    public static final Item ingotOrichalcum = new ItemIngotOrichalcum();
+
 }

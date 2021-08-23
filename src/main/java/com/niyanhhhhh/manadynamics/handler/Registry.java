@@ -4,6 +4,7 @@ import com.niyanhhhhh.manadynamics.block.Blocks;
 import com.niyanhhhhh.manadynamics.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,6 +19,7 @@ public class Registry {
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> r = event.getRegistry();
         r.registerAll(Items.ITEMS.toArray(new Item[0]));
+        r.registerAll(Blocks.BLOCKS.stream().map(ItemBlock::new).toArray(ItemBlock[]::new));
     }
 
     @SubscribeEvent

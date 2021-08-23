@@ -25,7 +25,7 @@ minecraft {
     runDir = "run"
     mappings = "stable_39"
 
-    replaceIn "ManaDynamics.java"
+    replaceIn "Main.java"
     replace '@VERSION@', project.version
     replace '@MODNAME@', project.modname
     replace '@MODID@', project.modid

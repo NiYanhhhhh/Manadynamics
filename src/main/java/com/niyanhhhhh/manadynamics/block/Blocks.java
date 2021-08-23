@@ -10,4 +10,6 @@ public class Blocks {
 
     public static final List<Block> BLOCKS = new ArrayList<>();
 
+    public static final Block blockOrichalcum = new BlockOrichalcum();
+
 }

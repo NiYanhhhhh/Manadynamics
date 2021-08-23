@@ -16,7 +16,7 @@ import vazkii.botania.client.render.IModelRegister;
 public class Registry {
 
     @SubscribeEvent
-    public static void onItemRegister(RegistryEvent.Register<Item> event) {
+    public static void registerItems(RegistryEvent.Register<Item> event) {
         IForgeRegistry<Item> r = event.getRegistry();
         r.registerAll(Items.ITEMS.toArray(new Item[0]));
         r.registerAll(Blocks.BLOCKS.stream().map(ItemBlock::new).toArray(ItemBlock[]::new));

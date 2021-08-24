@@ -13,8 +13,8 @@ public class ManaConnectHandler implements IManaConnectHandler, INBTSerializable
     protected int maxMana;
     protected int maxLinks;
     protected boolean allowLink;
-    protected boolean allowInput;
-    protected boolean allowOutput;
+    protected boolean allowInput = true;
+    protected boolean allowOutput = true;
 
     public ManaConnectHandler() {
     }

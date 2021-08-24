@@ -1,6 +1,5 @@
 package com.niyanhhhhh.manadynamics.proxy;
 
-import com.niyanhhhhh.manadynamics.handler.capability.IManaConnectHandler;
 import com.niyanhhhhh.manadynamics.handler.capability.ManaConnectHandler;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,20 +18,16 @@ public class CommonProxy {
     }
 
     public void preInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(IManaConnectHandler.class, new Capability.IStorage<IManaConnectHandler>() {
+        CapabilityManager.INSTANCE.register(ManaConnectHandler.class, new Capability.IStorage<ManaConnectHandler>() {
             @Nullable
             @Override
-            public NBTBase writeNBT(Capability<IManaConnectHandler> capability, IManaConnectHandler instance, EnumFacing side) {
-                if (!(instance instanceof ManaConnectHandler))
-                    throw new RuntimeException("IManaConnectHandler instance does not implement ManaConnectHandler");
-                return ((ManaConnectHandler) instance).serializeNBT();
+            public NBTBase writeNBT(Capability<ManaConnectHandler> capability, ManaConnectHandler instance, EnumFacing side) {
+                return instance.serializeNBT();
             }
 
             @Override
-            public void readNBT(Capability<IManaConnectHandler> capability, IManaConnectHandler instance, EnumFacing side, NBTBase nbt) {
-                if (!(instance instanceof ManaConnectHandler))
-                    throw new RuntimeException("IManaConnectHandler instance does not implement ManaConnectHandler");
-                ((ManaConnectHandler) instance).deserializeNBT((NBTTagCompound) nbt);
+            public void readNBT(Capability<ManaConnectHandler> capability, ManaConnectHandler instance, EnumFacing side, NBTBase nbt) {
+                instance.deserializeNBT((NBTTagCompound) nbt);
             }
         }, ManaConnectHandler::new);
     }

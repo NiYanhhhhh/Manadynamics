@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class ManaConnectHandler implements IManaConnectHandler, INBTSerializable<NBTTagCompound> {
+public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
 
     private int mana;
     private int links;
@@ -60,27 +60,22 @@ public class ManaConnectHandler implements IManaConnectHandler, INBTSerializable
         return mana >= maxMana;
     }
 
-    @Override
     public int getMaxMana() {
         return maxMana;
     }
 
-    @Override
     public int getMaxLinks() {
         return maxLinks;
     }
 
-    @Override
     public boolean isAllowLink() {
         return allowLink;
     }
 
-    @Override
     public boolean isAllowInput() {
         return allowInput;
     }
 
-    @Override
     public boolean isAllowOutput() {
         return allowOutput;
     }

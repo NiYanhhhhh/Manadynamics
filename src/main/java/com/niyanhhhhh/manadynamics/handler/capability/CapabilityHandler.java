@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber
 public class CapabilityHandler {
 
-    @CapabilityInject(IManaConnectHandler.class)
-    public static Capability<IManaConnectHandler> MANA_CONNECT_CAPABILITY;
+    @CapabilityInject(ManaConnectHandler.class)
+    public static Capability<ManaConnectHandler> MANA_CONNECT_CAPABILITY;
 
 }

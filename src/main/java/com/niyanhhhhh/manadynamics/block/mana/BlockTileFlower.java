@@ -2,24 +2,53 @@ package com.niyanhhhhh.manadynamics.block.mana;
 
 import com.niyanhhhhh.manadynamics.Main;
 import com.niyanhhhhh.manadynamics.block.Blocks;
-import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.client.render.IModelRegister;
 
 import javax.annotation.Nonnull;
 
-public abstract class BlockTileFlower extends BlockFlower implements ITileEntityProvider {
+public abstract class BlockTileFlower extends BlockBush implements ITileEntityProvider, IModelRegister {
+
+    private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
     public BlockTileFlower(String name) {
+
         setTranslationKey(Main.MODID + "." + name);
-        setRegistryName(Main.MODID + ":" + name);
+        setRegistryName(new ResourceLocation(Main.MODID, name));
+        setHardness(0.1F);
+        setSoundType(SoundType.PLANT);
+        setTickRandomly(false);
 
         Blocks.BLOCKS.add(this);
+    }
+
+    @Nonnull
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+        return AABB.offset(state.getOffset(world, pos));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerModels() {
+        if (Item.getItemFromBlock(this) != Items.AIR)
+            ModelHandler.registerBlockToState(this, 0, getDefaultState());
     }
 
     @Override
@@ -39,11 +68,5 @@ public abstract class BlockTileFlower extends BlockFlower implements ITileEntity
         super.eventReceived(state, world, pos, par5, par6);
         TileEntity tileentity = world.getTileEntity(pos);
         return tileentity != null && tileentity.receiveClientEvent(par5, par6);
-    }
-
-    @Nonnull
-    @Override
-    public EnumFlowerColor getBlockType() {
-        return EnumFlowerColor.YELLOW;
     }
 }

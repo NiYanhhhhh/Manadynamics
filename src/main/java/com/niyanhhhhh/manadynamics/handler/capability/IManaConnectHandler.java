@@ -2,12 +2,16 @@ package com.niyanhhhhh.manadynamics.handler.capability;
 
 public interface IManaConnectHandler {
 
-    int getMana();
+    int getMaxMana();
 
-    int getMaxLink();
+    int getMaxLinks();
 
     boolean isAllowInput();
 
     boolean isAllowOutput();
+
+    default boolean isAllowLink() {
+        return true;
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.niyanhhhhh.manadynamics.block.mana;
 
 import com.niyanhhhhh.manadynamics.Main;
+import com.niyanhhhhh.manadynamics.block.Blocks;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -19,6 +20,8 @@ public abstract class ManaBlockBase extends BlockContainer implements IModelRegi
 
         setTranslationKey(Main.MODID + "." + name);
         setRegistryName(Main.MODID + ":" + name);
+
+        Blocks.BLOCKS.add(this);
     }
 
     @Nonnull

@@ -80,7 +80,10 @@ public class TileManaConnect extends TileEntity implements IManaReceiver {
     }
 
     public TileManaConnect getTileExtract() {
-        return (TileManaConnect) world.getTileEntity(getManaConnect().getExtractPos());
+        if (Objects.nonNull(getManaConnect().getExtractPos())) {
+            return (TileManaConnect) world.getTileEntity(getManaConnect().getExtractPos());
+        }
+        return null;
     }
 
     public boolean extractMana(int mana) {
@@ -93,7 +96,7 @@ public class TileManaConnect extends TileEntity implements IManaReceiver {
     }
 
     public boolean isExistExtractPos() {
-        return Objects.nonNull(getManaConnect().getExtractPos());
+        return Objects.nonNull(getTileExtract());
     }
 
     public ManaConnectHandler getManaConnect() {

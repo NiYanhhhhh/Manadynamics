@@ -3,7 +3,7 @@ package com.niyanhhhhh.manadynamics.handler;
 import com.niyanhhhhh.manadynamics.Main;
 import com.niyanhhhhh.manadynamics.block.Blocks;
 import com.niyanhhhhh.manadynamics.item.Items;
-import com.niyanhhhhh.manadynamics.tile.TileManaConduction;
+import com.niyanhhhhh.manadynamics.block.mana.conduction.TileManaConduction;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;

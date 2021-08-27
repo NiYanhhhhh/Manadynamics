@@ -8,7 +8,7 @@ public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
 
     private int mana;
     private int links;
-    private BlockPos extract;
+    private BlockPos extractPos;
 
     protected int maxMana;
     protected int maxLinks;
@@ -49,7 +49,7 @@ public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
     }
 
     public void addMana(int mana) {
-        this.mana += mana;
+        this.mana = Math.min(getMaxMana(), this.mana + mana);
     }
 
     public void consumeMana(int mana) {
@@ -80,8 +80,12 @@ public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
         return allowOutput;
     }
 
-    public BlockPos getExtract() {
-        return extract;
+    public BlockPos getExtractPos() {
+        return extractPos;
+    }
+
+    public void setExtractPos(BlockPos extractPos) {
+        this.extractPos = extractPos;
     }
 
     private void setMana(int mana) {
@@ -90,10 +94,6 @@ public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
 
     private void setLinks(int links) {
         this.links = links;
-    }
-
-    private void setExtract(BlockPos extract) {
-        this.extract = extract;
     }
 
     private void setMaxMana(int maxMana) {
@@ -127,12 +127,12 @@ public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
         nbt.setBoolean("AllowInput", isAllowInput());
         nbt.setBoolean("AllowOutput", isAllowOutput());
 
-        if (this.extract != null) {
+        if (this.extractPos != null) {
             NBTTagCompound extract = new NBTTagCompound();
             nbt.setTag("Extract", extract);
-            extract.setInteger("x", getExtract().getX());
-            extract.setInteger("y", getExtract().getY());
-            extract.setInteger("z", getExtract().getZ());
+            extract.setInteger("x", getExtractPos().getX());
+            extract.setInteger("y", getExtractPos().getY());
+            extract.setInteger("z", getExtractPos().getZ());
         }
         return nbt;
     }
@@ -149,7 +149,7 @@ public class ManaConnectHandler implements INBTSerializable<NBTTagCompound> {
 
         if (nbt.hasKey("Extract")) {
             NBTTagCompound extract = (NBTTagCompound) nbt.getTag("Extract");
-            setExtract(new BlockPos(extract.getInteger("x"), extract.getInteger("y"), extract.getInteger("z")));
+            setExtractPos(new BlockPos(extract.getInteger("x"), extract.getInteger("y"), extract.getInteger("z")));
         }
     }
 

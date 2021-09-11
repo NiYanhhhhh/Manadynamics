@@ -18,7 +18,7 @@ public class Main {
     public static final String CLIENT_PORXY_CLASS = "com.niyanhhhhh.manadynamics.proxy.ClientProxy";
     public static final String COMMON_PORXY_CLASS = "com.niyanhhhhh.manadynamics.proxy.CommonProxy";
 
-    private static Logger logger = LogManager.getLogger(MODID);
+    private static final Logger LOGGER = LogManager.getLogger(MODID);
 
     @SidedProxy(clientSide = CLIENT_PORXY_CLASS, serverSide = COMMON_PORXY_CLASS)
     public static CommonProxy proxy;

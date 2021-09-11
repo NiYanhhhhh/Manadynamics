@@ -35,6 +35,7 @@ dependencies {
     runtime "com.azanor.baubles:Baubles:1.12-1.5.2"
 
     deobfCompile "vazkii.botania:Botania:r1.10-363.148"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.660"
 }
 
 repositories {

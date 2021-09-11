@@ -8,5 +8,4 @@ public class TileManaConduction extends TileManaConnect implements ITickable {
     public void update() {
 
     }
-
 }

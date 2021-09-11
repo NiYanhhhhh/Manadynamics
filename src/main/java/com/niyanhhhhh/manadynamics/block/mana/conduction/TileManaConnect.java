@@ -2,21 +2,30 @@ package com.niyanhhhhh.manadynamics.block.mana.conduction;
 
 import com.niyanhhhhh.manadynamics.handler.capability.CapabilityHandler;
 import com.niyanhhhhh.manadynamics.handler.capability.ManaConnectHandler;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.wand.IWandBindable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class TileManaConnect extends TileEntity implements IManaReceiver {
+public class TileManaConnect extends TileEntity implements IManaReceiver, IWandBindable {
 
     private static final int MAX_MANA = 1000000;
     private static final int MAX_LINK = 4;
+
+    private int knowMana = -1;
 
     private final ManaConnectHandler manaConnect = new ManaConnectHandler(getMaxMana(), getMaxLink());
 
@@ -109,5 +118,34 @@ public class TileManaConnect extends TileEntity implements IManaReceiver {
 
     public int getMaxLink() {
         return MAX_LINK;
+    }
+
+    public boolean onWanded(ItemStack stack, EntityPlayer player) {
+        if (Objects.isNull(player))
+            return false;
+        if(!player.world.isRemote)
+            VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+
+        knowMana = getManaConnect().getMana();
+        SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(SubTileEntity.DING_SOUND_EVENT);
+        if (evt != null)
+            player.playSound(evt, 0.1F, 1F);
+
+        return false;
+    }
+
+    @Override
+    public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+        return true;
+    }
+
+    @Override
+    public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+        return true;
+    }
+
+    @Override
+    public BlockPos getBinding() {
+        return getManaConnect().getExtractPos();
     }
 }
